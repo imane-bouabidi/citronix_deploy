@@ -11,6 +11,7 @@ import java.util.List;
 public interface FermeMapper {
     FermeDTO toDTO(Ferme ferme);
     Ferme toEntity(FermeDTO fermeDTO);
+    @Mapping(target = "dateCreation", source = "dateCreation")
     Ferme toEntity(FermeCreateDTO fermeDTO);
     Ferme toEntity(FermeUpdateDTO fermeDTO);
     List<FermeDTO> toDTOList(List<Ferme> fermes);
