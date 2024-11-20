@@ -5,6 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.UUID;
 
+
 @Data
 public class VenteCreateDTO {
     @NotNull(message = "La date de vente est obligatoire.")

@@ -34,5 +34,6 @@ public class Vente {
     public double getRevenu() {
         return quantite * prixUnitaire;
     }
+
 }
 

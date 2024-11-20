@@ -1,5 +1,6 @@
 package com.wora.citronix.dtos.vente;
 
+import com.wora.citronix.dtos.recolte.RecolteEmbeddedDTO;
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.UUID;
