@@ -2,10 +2,14 @@ package com.wora.citronix.dtos.ferme;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
+@Getter
+@Setter
 public class FermeUpdateDTO {
     @NotNull(message = "L'identifiant de la ferme est obligatoire.")
     private Long id;

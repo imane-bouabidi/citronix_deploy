@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -27,10 +26,11 @@ public class Ferme {
     private String localisation;
 
     @NotNull
-    @Min(0)
+    @Min(1)
     private Double superficie;
 
     @NotNull
+    @Column(name = "date_creation")
     private LocalDate dateCreation;
 
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
