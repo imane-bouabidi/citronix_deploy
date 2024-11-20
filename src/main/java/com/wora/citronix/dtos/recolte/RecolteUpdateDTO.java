@@ -1,5 +1,6 @@
 package com.wora.citronix.dtos.recolte;
 
+import com.wora.citronix.dtos.champ.ChampEmbeddedDTO;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.util.UUID;
 @Data
 public class RecolteUpdateDTO {
     @NotNull(message = "L'identifiant de la récolte est obligatoire.")
-    private UUID id;
+    private Long id;
 
     @NotNull(message = "La date de récolte est obligatoire.")
     private LocalDate dateRecolte;
@@ -20,7 +21,7 @@ public class RecolteUpdateDTO {
     @Positive(message = "La quantité totale doit être positive.")
     private double quantiteTotale;
 
-    @NotNull(message = "L'identifiant du champ est obligatoire.")
-    private UUID champId;
+    @NotNull(message = "champ est obligatoire.")
+    private ChampEmbeddedDTO champ;
 }
 

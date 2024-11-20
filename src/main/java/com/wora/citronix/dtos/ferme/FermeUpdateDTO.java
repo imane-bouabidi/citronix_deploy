@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 public class FermeUpdateDTO {
     @NotNull(message = "L'identifiant de la ferme est obligatoire.")
-    private UUID id;
+    private Long id;
 
     @NotBlank(message = "Le nom de la ferme est obligatoire.")
     private String nom;

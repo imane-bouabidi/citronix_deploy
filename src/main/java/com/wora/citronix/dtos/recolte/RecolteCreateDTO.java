@@ -1,5 +1,6 @@
 package com.wora.citronix.dtos.recolte;
 
+import com.wora.citronix.dtos.champ.ChampEmbeddedDTO;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class RecolteCreateDTO {
     @Positive(message = "La quantité totale doit être positive.")
     private double quantiteTotale;
 
-    @NotNull(message = "L'identifiant du champ est obligatoire.")
-    private UUID champId;
+    @NotNull(message = "champ est obligatoire.")
+    private ChampEmbeddedDTO champ;
 }
 

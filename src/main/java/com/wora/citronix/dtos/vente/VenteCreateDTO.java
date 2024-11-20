@@ -1,5 +1,6 @@
 package com.wora.citronix.dtos.vente;
 
+import com.wora.citronix.dtos.recolte.RecolteEmbeddedDTO;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class VenteCreateDTO {
     @Positive(message = "Le montant total doit être positif.")
     private double montantTotal;
 
-    @NotNull(message = "L'identifiant de la récolte est obligatoire.")
-    private UUID recolteId;
+    @NotNull(message = "la récolte est obligatoire.")
+    private RecolteEmbeddedDTO recolte;
 }
 

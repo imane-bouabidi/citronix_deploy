@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 public class ChampDTO {
-    private UUID id;
+    private Long id;
     private Long superficie;
     private FermeEmbeddedDTO ferme;
     private List<ArbreEmbeddedDTO> arbres;

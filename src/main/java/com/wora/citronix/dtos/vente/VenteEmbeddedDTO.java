@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class VenteEmbeddedDTO {
-    private UUID id;
+    private Long id;
     private LocalDate dateVente;
     private double montantTotal;
 }

@@ -1,5 +1,6 @@
 package com.wora.citronix.dtos.champ;
 
+import com.wora.citronix.dtos.ferme.FermeEmbeddedDTO;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.util.UUID;
@@ -10,7 +11,7 @@ public class ChampCreateDTO {
     private Long superficie;
 
     @NotNull(message = "L'identifiant de la ferme est obligatoire.")
-    private UUID fermeId;
+    private FermeEmbeddedDTO fermeEmbedded;
 
 }
 

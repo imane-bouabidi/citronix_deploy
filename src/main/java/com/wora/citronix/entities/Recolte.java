@@ -4,7 +4,6 @@ import com.wora.citronix.entities.enums.Saison;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
