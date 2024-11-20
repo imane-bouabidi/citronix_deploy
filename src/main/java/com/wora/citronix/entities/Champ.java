@@ -19,8 +19,8 @@ public class Champ {
     private UUID id;
 
     @NotNull
-    @Min(0.1)
-    private Double superficie;
+    @Min(1)
+    private Long superficie;
 
     @ManyToOne
     @JoinColumn(name = "ferme_id", nullable = false)
