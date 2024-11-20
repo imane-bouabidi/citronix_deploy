@@ -37,4 +37,5 @@ public class Recolte {
 
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
     private List<DetailRecolte> details;
+
 }
