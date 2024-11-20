@@ -13,7 +13,7 @@ import java.util.UUID;
 public class DetailRecolte {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private double quantite;

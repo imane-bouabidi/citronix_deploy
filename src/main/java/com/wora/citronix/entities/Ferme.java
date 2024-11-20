@@ -17,7 +17,7 @@ public class Ferme {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @NotBlank
     @Size(max = 100)

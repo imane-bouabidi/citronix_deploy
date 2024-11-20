@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Vente {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private LocalDate dateVente;
