@@ -1,5 +1,6 @@
 package com.wora.citronix.dtos.recolte;
 
+import com.wora.citronix.dtos.champ.ChampEmbeddedDTO;
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,5 +13,5 @@ public class RecolteDTO {
     private String saison;
     private double quantiteTotale;
     private ChampEmbeddedDTO champ;
-    private List<DétailRécolteEmbeddedDTO> details;
+    private List<DetailRecolteEmbeddedDTO> details;
 }

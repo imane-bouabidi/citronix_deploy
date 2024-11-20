@@ -1,9 +1,15 @@
 package com.wora.citronix.Mappers;
 
+import com.wora.citronix.dtos.recolte.RecolteDTO;
+import com.wora.citronix.entities.Recolte;
+import org.mapstruct.Mapper;
+
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface RecolteMapper {
-    RécolteDTO toDTO(Récolte recolte);
-    Récolte toEntity(RécolteDTO recolteDTO);
-    List<RécolteDTO> toDTOList(List<Récolte> recoltes);
+    RecolteDTO toDTO(Recolte recolte);
+    Recolte toEntity(RecolteDTO recolteDTO);
+    List<RecolteDTO> toDTOList(List<Recolte> recoltes);
 }
 

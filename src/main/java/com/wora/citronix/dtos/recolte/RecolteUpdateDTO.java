@@ -5,6 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.UUID;
 
+
 @Data
 public class RecolteUpdateDTO {
     @NotNull(message = "L'identifiant de la récolte est obligatoire.")
