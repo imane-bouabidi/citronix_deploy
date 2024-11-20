@@ -16,7 +16,7 @@ public class Arbre {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @NotNull
     private LocalDate datePlantation;

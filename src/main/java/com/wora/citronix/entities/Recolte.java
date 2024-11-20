@@ -17,7 +17,7 @@ public class Recolte {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @NotNull
     private LocalDate dateRecolte;

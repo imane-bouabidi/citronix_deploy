@@ -16,7 +16,7 @@ public class Champ {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @NotNull
     @Min(1)
