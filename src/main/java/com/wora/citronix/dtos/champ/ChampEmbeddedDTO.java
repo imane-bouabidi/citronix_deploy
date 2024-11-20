@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class ChampEmbeddedDTO {
-    private UUID id;
+    private Long id;
     private Long superficie;
 }
 

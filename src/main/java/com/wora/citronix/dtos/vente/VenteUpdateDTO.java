@@ -1,5 +1,6 @@
 package com.wora.citronix.dtos.vente;
 
+import com.wora.citronix.dtos.recolte.RecolteEmbeddedDTO;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.util.UUID;
 @Data
 public class VenteUpdateDTO {
     @NotNull(message = "L'identifiant de la vente est obligatoire.")
-    private UUID id;
+    private Long id;
 
     @NotNull(message = "La date de vente est obligatoire.")
     private LocalDate dateVente;
@@ -17,6 +18,6 @@ public class VenteUpdateDTO {
     @Positive(message = "Le montant total doit être positif.")
     private double montantTotal;
 
-    @NotNull(message = "L'identifiant de la récolte est obligatoire.")
-    private UUID recolteId;
+    @NotNull(message = "la récolte est obligatoire.")
+    private RecolteEmbeddedDTO recolte;
 }

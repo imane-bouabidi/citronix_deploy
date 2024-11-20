@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class RecolteEmbeddedDTO {
-    private UUID id;
+    private Long id;
     private double quantiteTotale;
     private String saison;
 }

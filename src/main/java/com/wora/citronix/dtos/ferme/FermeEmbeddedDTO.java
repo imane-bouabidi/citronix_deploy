@@ -5,7 +5,7 @@ import java.util.UUID;
 
 @Data
 public class FermeEmbeddedDTO {
-    private UUID id;
+    private Long id;
     private String nom;
 }
 

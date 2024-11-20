@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class ArbreEmbeddedDTO {
-    private UUID id;
+    private Long id;
     private LocalDate datePlantation;
 }
 
