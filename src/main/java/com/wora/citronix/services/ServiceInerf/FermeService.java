@@ -10,7 +10,7 @@ import java.util.List;
 public interface FermeService extends GenericService<FermeCreateDTO, FermeUpdateDTO,FermeDTO,Long> {
     FermeDTO save(FermeCreateDTO createDto);
 //    FermeDTO findById(Long id);
-//    FermeDTO update(FermeUpdateDTO updateDto, Long id);
+    FermeDTO update(FermeUpdateDTO updateDto, Long id);
 //    List<FermeDTO> findAll(int page, int size);
 //    void delete(Long id);
 }

@@ -2,15 +2,13 @@ package com.wora.citronix.controllers;
 
 import com.wora.citronix.dtos.ferme.FermeCreateDTO;
 import com.wora.citronix.dtos.ferme.FermeDTO;
+import com.wora.citronix.dtos.ferme.FermeUpdateDTO;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.FermeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/fermes")
@@ -24,5 +22,19 @@ public class FermeController {
         System.out.println("faaarararara : " + fermeCreateDTO);
         FermeDTO savedVisit = fermeService.save(fermeCreateDTO);
         return ResponseEntity.status(201).body(savedVisit);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FermeDTO> updateFerme(
+            @RequestBody @Valid FermeUpdateDTO fermeUpdateDTO,
+            @PathVariable Long id) {
+
+        FermeDTO updatedFerme = fermeService.update(fermeUpdateDTO, id);
+
+        if (updatedFerme == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(updatedFerme);
     }
 }
