@@ -34,7 +34,6 @@ public class FermeController {
         if (updatedFerme == null) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(updatedFerme);
     }
 }
