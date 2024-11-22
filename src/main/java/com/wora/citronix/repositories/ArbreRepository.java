@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArbreRepository extends JpaRepository<Arbre,Long> {
     Page<Arbre> findByChampId(Long fermeId, Pageable pageable);
+    long countByChamp(Champ champ);
 
 }
