@@ -40,8 +40,14 @@ public class ChampController {
 
 
 //    @GetMapping
-//    public ResponseEntity<List<ChampDTO>> getAllWaitingRooms(@RequestParam int page, @RequestParam int size) {
+//    public ResponseEntity<List<ChampDTO>> getAllChamps(@RequestParam int page, @RequestParam int size) {
 //        List<ChampDTO> ferms = champService.findAll(page, size);
 //        return ResponseEntity.ok(ferms);
 //    }
+
+    @GetMapping("/by_ferme")
+    public ResponseEntity<List<ChampDTO>> getChampsByFermeId(@RequestParam Long fermeId, @RequestParam int page, @RequestParam int size) {
+        List<ChampDTO> ferms = champService.findByFermeId(fermeId,page, size);
+        return ResponseEntity.ok(ferms);
+    }
 }
