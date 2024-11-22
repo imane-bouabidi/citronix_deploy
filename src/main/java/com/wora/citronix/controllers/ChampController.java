@@ -49,4 +49,10 @@ public class ChampController {
         List<ChampDTO> ferms = champService.findByFermeId(fermeId,page, size);
         return ResponseEntity.ok(ferms);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        champService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

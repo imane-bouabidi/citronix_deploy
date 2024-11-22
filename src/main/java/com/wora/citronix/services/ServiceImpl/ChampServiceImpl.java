@@ -74,4 +74,9 @@ public class ChampServiceImpl implements ChampService {
                 .map(champMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void delete(Long id){
+        champRepo.deleteById(id);
+    }
 }
