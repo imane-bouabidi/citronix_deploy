@@ -39,6 +39,7 @@ public class FermeController {
         return ResponseEntity.ok(updatedFerme);
     }
 
+
     @GetMapping
     public ResponseEntity<List<FermeDTO>> getAllWaitingRooms(@RequestParam int page, @RequestParam int size) {
         List<FermeDTO> ferms = fermeService.findAll(page, size);
