@@ -30,6 +30,8 @@ public class Arbre {
     @JoinColumn(name = "champ_id", nullable = false)
     private Champ champ;
 
-    private boolean productif;
+    @NotNull
+    private double productiviteAnnuelle = 0.0;
+
 }
 

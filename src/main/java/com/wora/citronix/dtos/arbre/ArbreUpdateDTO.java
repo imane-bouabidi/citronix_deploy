@@ -23,11 +23,10 @@ public class ArbreUpdateDTO {
     @Max(20)
     private Integer age;
 
-    private boolean productif;
-
     @NotNull(message = "L'identifiant du champ est obligatoire.")
     private Long champId;
-
+    @NotNull
+    private double productiviteAnnuelle;
 
 }
 
