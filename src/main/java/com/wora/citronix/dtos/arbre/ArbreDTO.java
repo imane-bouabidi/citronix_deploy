@@ -10,4 +10,6 @@ public class ArbreDTO {
     private Long id;
     private LocalDate datePlantation;
     private ChampEmbeddedDTO champ;
+    private Integer age;
+    private boolean productif;
 }

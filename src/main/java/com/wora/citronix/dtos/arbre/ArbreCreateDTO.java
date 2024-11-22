@@ -1,6 +1,5 @@
 package com.wora.citronix.dtos.arbre;
 
-import com.wora.citronix.dtos.champ.ChampEmbeddedDTO;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -21,13 +20,18 @@ public class ArbreCreateDTO {
 
     private boolean productif;
 
-    public void setAge(LocalDate datePlantation) {
-        this.datePlantation = datePlantation;
-        if (this.datePlantation != null) {
-            LocalDate today = LocalDate.now();
-            this.age = Period.between(this.datePlantation, today).getYears();
-        }
-    }
+//    public Integer setAge(LocalDate datePlantation) {
+//        this.datePlantation = datePlantation;
+//        if (this.datePlantation != null) {
+//            LocalDate today = LocalDate.now();
+//            Integer age = Period.between(this.datePlantation, today).getYears();
+//        }
+//        return age;
+//    }
 
+
+    public void setAge(@NotNull @Min(0) @Max(20) Integer age) {
+        this.age = age;
+    }
 }
 
