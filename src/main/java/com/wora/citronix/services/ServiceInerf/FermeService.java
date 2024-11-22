@@ -11,6 +11,6 @@ public interface FermeService extends GenericService<FermeCreateDTO, FermeUpdate
     FermeDTO save(FermeCreateDTO createDto);
 //    FermeDTO findById(Long id);
     FermeDTO update(FermeUpdateDTO updateDto, Long id);
-//    List<FermeDTO> findAll(int page, int size);
+    List<FermeDTO> findAll(int page, int size);
 //    void delete(Long id);
 }
