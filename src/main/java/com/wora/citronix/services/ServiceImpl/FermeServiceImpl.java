@@ -3,11 +3,14 @@ package com.wora.citronix.services.ServiceImpl;
 import com.wora.citronix.Mappers.FermeMapper;
 import com.wora.citronix.dtos.ferme.FermeCreateDTO;
 import com.wora.citronix.dtos.ferme.FermeDTO;
+import com.wora.citronix.dtos.ferme.FermeSearchDTO;
 import com.wora.citronix.dtos.ferme.FermeUpdateDTO;
 import com.wora.citronix.entities.Ferme;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.FermeService;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 public class FermeServiceImpl implements FermeService {
     private final FermeMapper fermeMapper;
     private final FermeRepository fermeRepo;
+    private final EntityManager entityManager;
 
     public FermeDTO save(FermeCreateDTO createDto){
         Ferme ferme = fermeMapper.toEntity(createDto);
@@ -45,5 +49,15 @@ public class FermeServiceImpl implements FermeService {
         return fermeRepo.findAll(pageable).stream()
                 .map(fermeMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+public List<FermeDTO> rechercherFermes(FermeSearchDTO searchDTO) {
+        List<Ferme> fermes = fermeRepo.rechercherFermes(
+                searchDTO.getNom(),
+                searchDTO.getLocalisation(),
+                entityManager
+        );
+        return fermes.stream().map(fermeMapper::toDTO).toList();
     }
 }
