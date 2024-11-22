@@ -52,12 +52,12 @@ public class FermeServiceImpl implements FermeService {
     }
 
     @Transactional
-public List<FermeDTO> rechercherFermes(FermeSearchDTO searchDTO) {
-        List<Ferme> fermes = fermeRepo.rechercherFermes(
-                searchDTO.getNom(),
-                searchDTO.getLocalisation(),
-                entityManager
-        );
-        return fermes.stream().map(fermeMapper::toDTO).toList();
+    public List<FermeDTO> rechercherFermes(FermeSearchDTO searchDTO) {
+            List<Ferme> fermes = fermeRepo.rechercherFermes(
+                    searchDTO.getNom(),
+                    searchDTO.getLocalisation(),
+                    entityManager
+            );
+            return fermes.stream().map(fermeMapper::toDTO).toList();
+        }
     }
-}
