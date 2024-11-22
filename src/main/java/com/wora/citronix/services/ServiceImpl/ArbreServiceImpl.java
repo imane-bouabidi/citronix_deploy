@@ -7,6 +7,7 @@ import com.wora.citronix.dtos.arbre.ArbreUpdateDTO;
 import com.wora.citronix.entities.Arbre;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.exceptions.DatePlantationException;
+import com.wora.citronix.exceptions.DensiteArbresException;
 import com.wora.citronix.repositories.ArbreRepository;
 import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.services.ServiceInerf.ArbreService;
@@ -41,11 +42,18 @@ public class ArbreServiceImpl implements ArbreService {
             throw new DatePlantationException("La plantation d'arbres est limitée aux mois de mars, avril et mai.");
         }
         Champ champ = champOptional.get();
+        long nombreArbres = arbreRepo.countByChamp(champ);
+
         // calculer l'age a l'aide de date de plantation
         int age = calculateAge(createDto.getDatePlantation());
         createDto.setAge(age);
         //calcul du productivité annuelle
         createDto.setProductiviteAnnuelle(calculerProductiviteAnnuelle(age));
+
+        if ((nombreArbres + 1) > champ.getSuperficie() * 100) {
+            throw new DensiteArbresException("La densité des arbres dans ce champ ne peut pas dépasser 100 arbres par hectare.");
+        }
+
         Arbre arbre = arbreMapper.toEntity(createDto);
         arbre.setChamp(champ);
 
