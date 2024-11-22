@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +30,13 @@ public class ChampServiceImpl implements ChampService {
 
 
     public ChampDTO save(ChampCreateDTO createDto){
+        Optional<Ferme> fermeOptional = fermeRepository.findById(createDto.getFermeId());
+        if (fermeOptional.isEmpty()) {
+            throw new EntityNotFoundException("Ferme non trouvee");
+        }
+        Ferme ferme = fermeOptional.get();
         Champ champ = champMapper.toEntity(createDto);
+        champ.setFerme(ferme);
         return champMapper.toDTO(champRepo.save(champ));
     }
 
