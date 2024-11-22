@@ -4,8 +4,6 @@ import com.wora.citronix.dtos.ferme.FermeCreateDTO;
 import com.wora.citronix.dtos.ferme.FermeDTO;
 import com.wora.citronix.dtos.ferme.FermeSearchDTO;
 import com.wora.citronix.dtos.ferme.FermeUpdateDTO;
-import com.wora.citronix.entities.Ferme;
-import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.FermeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +16,10 @@ import java.util.List;
 @RequestMapping("/api/fermes")
 @RequiredArgsConstructor
 public class FermeController {
-    private final FermeRepository fermeRepo;
     private final FermeService fermeService;
 
     @PostMapping
     public ResponseEntity<FermeDTO> createFerme(@RequestBody @Valid FermeCreateDTO fermeCreateDTO) {
-        System.out.println("faaarararara : " + fermeCreateDTO);
         FermeDTO savedVisit = fermeService.save(fermeCreateDTO);
         return ResponseEntity.status(201).body(savedVisit);
     }
