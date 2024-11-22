@@ -15,6 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +35,7 @@ public class ArbreServiceImpl implements ArbreService {
             throw new EntityNotFoundException("Champ non trouvé");
         }
         Champ champ = champOptional.get();
-        createDto.setAge(createDto.getDatePlantation());
+        createDto.setAge(calculateAge(createDto.getDatePlantation()));
         Arbre arbre = arbreMapper.toEntity(createDto);
         arbre.setChamp(champ);
 
@@ -77,5 +80,9 @@ public class ArbreServiceImpl implements ArbreService {
     @Override
     public void delete(Long id){
         arbreRepo.deleteById(id);
+    }
+
+    private Integer calculateAge(LocalDate datePlantation){
+        return (int) ChronoUnit.YEARS.between(datePlantation, LocalDate.now());
     }
 }

@@ -37,17 +37,17 @@ public class ArbreControlleur {
 //    }
 //
 //
-//    @GetMapping
-//    public ResponseEntity<List<ArbreDTO>> getAllArbres(@RequestParam int page, @RequestParam int size) {
-//        List<ArbreDTO> ferms = arbreService.findAll(page, size);
-//        return ResponseEntity.ok(ferms);
-//    }
-//
-//    @GetMapping("/by_champ")
-//    public ResponseEntity<List<ArbreDTO>> getArbresByChampId(@RequestParam Long champId, @RequestParam int page, @RequestParam int size) {
-//        List<ArbreDTO> ferms = arbreService.findByChampId(champId,page, size);
-//        return ResponseEntity.ok(ferms);
-//    }
+    @GetMapping
+    public ResponseEntity<List<ArbreDTO>> getAllArbres(@RequestParam int page, @RequestParam int size) {
+        List<ArbreDTO> ferms = arbreService.findAll(page, size);
+        return ResponseEntity.ok(ferms);
+    }
+
+    @GetMapping("/by_champ")
+    public ResponseEntity<List<ArbreDTO>> getArbresByChampId(@RequestParam Long champId, @RequestParam int page, @RequestParam int size) {
+        List<ArbreDTO> ferms = arbreService.findByChampId(champId,page, size);
+        return ResponseEntity.ok(ferms);
+    }
 //
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<Void> delete(@PathVariable Long id) {
