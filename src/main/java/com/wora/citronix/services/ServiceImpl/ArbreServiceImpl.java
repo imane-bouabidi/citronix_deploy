@@ -8,6 +8,7 @@ import com.wora.citronix.entities.Arbre;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.exceptions.DatePlantationException;
 import com.wora.citronix.exceptions.DensiteArbresException;
+import com.wora.citronix.exceptions.PlusDe20Exception;
 import com.wora.citronix.repositories.ArbreRepository;
 import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.services.ServiceInerf.ArbreService;
@@ -33,23 +34,33 @@ public class ArbreServiceImpl implements ArbreService {
 
     public ArbreDTO save(ArbreCreateDTO createDto) {
         Optional<Champ> champOptional = champRepository.findById(createDto.getChampId());
+
         //verifier si champ existe
         if (champOptional.isEmpty()) {
             throw new EntityNotFoundException("Champ non trouvé");
         }
+
         //handler date de plantation erreur
         if (!isDatePlantationValide(createDto.getDatePlantation())) {
             throw new DatePlantationException("La plantation d'arbres est limitée aux mois de mars, avril et mai.");
         }
+
         Champ champ = champOptional.get();
         long nombreArbres = arbreRepo.countByChamp(champ);
 
         // calculer l'age a l'aide de date de plantation
         int age = calculateAge(createDto.getDatePlantation());
+
+        //empecher la plantation d'une arbre plus de 20 ans
+        if (age > 20) {
+            throw new PlusDe20Exception("Les arbres plus de 20 ans ne peuvent pas etre plantés !");
+        }
         createDto.setAge(age);
+
         //calcul du productivité annuelle
         createDto.setProductiviteAnnuelle(calculerProductiviteAnnuelle(age));
 
+        //verifier que le champ ne contient pas plus de 100 arbre par hectare
         if ((nombreArbres + 1) > champ.getSuperficie() * 100) {
             throw new DensiteArbresException("La densité des arbres dans ce champ ne peut pas dépasser 100 arbres par hectare.");
         }
