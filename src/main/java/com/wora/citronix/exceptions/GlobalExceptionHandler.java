@@ -12,5 +12,17 @@ public class GlobalExceptionHandler {
         String errorMessage = ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(SuperficieMinimumException.class)
+    public ResponseEntity<Object> handleSuperficieMinimumException(SuperficieMinimumException ex) {
+        String errorMessage = ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Superficie50Exception.class)
+    public ResponseEntity<Object> handleSuperficie50Exception(Superficie50Exception ex) {
+        String errorMessage = ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
 }
 

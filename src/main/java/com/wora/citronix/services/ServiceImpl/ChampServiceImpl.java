@@ -7,7 +7,9 @@ import com.wora.citronix.dtos.champ.ChampDTO;
 import com.wora.citronix.dtos.champ.ChampUpdateDTO;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.entities.Ferme;
+import com.wora.citronix.exceptions.Superficie50Exception;
 import com.wora.citronix.exceptions.SuperficieDepasseeException;
+import com.wora.citronix.exceptions.SuperficieMinimumException;
 import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.ChampService;
@@ -32,17 +34,11 @@ public class ChampServiceImpl implements ChampService {
 
     @Override
     public ChampDTO save(ChampCreateDTO createDto) {
-        Optional<Ferme> fermeOptional = fermeRepository.findById(createDto.getFermeId());
-        if (fermeOptional.isEmpty()) {
-            throw new EntityNotFoundException("Ferme non trouvee");
-        }
-        Ferme ferme = fermeOptional.get();
-        //verifier que la superficie des champs est < la superficie totale
-        double superficieTotaleChamps = champRepo.sumSuperficieByFerme(createDto.getFermeId());
+        Ferme ferme = fermeRepository.findById(createDto.getFermeId())
+                .orElseThrow(() -> new EntityNotFoundException("Ferme non trouvée"));
 
-        if (superficieTotaleChamps + createDto.getSuperficie() > ferme.getSuperficie()) {
-            throw new SuperficieDepasseeException("La somme des superficies des champs ne peut pas dépasser la superficie totale de la ferme");
-        }
+        validateSuperficie(null, createDto.getSuperficie(), ferme);
+
         Champ champ = champMapper.toEntity(createDto);
         champ.setFerme(ferme);
         return champMapper.toDTO(champRepo.save(champ));
@@ -79,4 +75,25 @@ public class ChampServiceImpl implements ChampService {
     public void delete(Long id){
         champRepo.deleteById(id);
     }
+
+    private void validateSuperficie(Champ champ, double nouvelleSuperficie, Ferme ferme) {
+        double superficieTotaleChamps = champRepo.sumSuperficieByFerme(ferme.getId());
+
+        double superficieRestante = champ != null ? superficieTotaleChamps - champ.getSuperficie() : superficieTotaleChamps;
+
+        if (nouvelleSuperficie < 1000) {
+            throw new SuperficieMinimumException("La superficie d'un champ ne peut pas être inférieure à 0.1 hectare");
+        }
+
+        double limiteMaxSuperficie = ferme.getSuperficie() * 0.5;
+        if (nouvelleSuperficie > limiteMaxSuperficie) {
+            throw new Superficie50Exception("La superficie d'un champ ne peut pas dépasser 50% de la superficie de la ferme");
+        }
+
+        if (superficieRestante + nouvelleSuperficie > ferme.getSuperficie()) {
+            throw new SuperficieDepasseeException("La somme des superficies des champs ne peut pas dépasser la superficie totale de la ferme");
+        }
+    }
+
+
 }
