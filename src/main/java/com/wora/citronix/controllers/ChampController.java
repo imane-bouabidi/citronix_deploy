@@ -25,18 +25,17 @@ public class ChampController {
         return ResponseEntity.status(201).body(savedChamp);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ChampDTO> updateChamp(
-//            @RequestBody @Valid ChampUpdateDTO champUpdateDTO,
-//            @PathVariable Long id) {
-//
-//        ChampDTO updatedChamp = champService.update(champUpdateDTO, id);
-//
-//        if (updatedChamp == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(updatedChamp);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ChampDTO> updateChamp(
+            @RequestBody @Valid ChampUpdateDTO champUpdateDTO) {
+
+        ChampDTO updatedChamp = champService.update(champUpdateDTO);
+
+        if (updatedChamp == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedChamp);
+    }
 
 
 //    @GetMapping

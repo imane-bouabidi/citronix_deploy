@@ -9,7 +9,7 @@ import java.util.List;
 public interface ChampService {
     ChampDTO save(ChampCreateDTO createDto);
     //    FermeDTO findById(Long id);
-    ChampDTO update(ChampUpdateDTO updateDto, Long id);
+    ChampDTO update(ChampUpdateDTO updateDto);
     List<ChampDTO> findAll(int page, int size);
     List<ChampDTO> findByFermeId(Long fermeId,int page, int size);
     //    void delete(Long id);

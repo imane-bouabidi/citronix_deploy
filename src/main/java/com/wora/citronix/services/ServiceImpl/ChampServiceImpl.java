@@ -50,12 +50,10 @@ public class ChampServiceImpl implements ChampService {
     }
 
     @Override
-    public ChampDTO update(ChampUpdateDTO updateDto, Long id) {
-        Champ champ = champRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("champ not found"));
-        Ferme ferme = fermeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("ferme not found"));
-        if (champ != null && ferme != null) {
+    public ChampDTO update(ChampUpdateDTO updateDto) {
+        Champ champ = champRepo.findById(updateDto.getId()).orElseThrow(() -> new EntityNotFoundException("champ not found"));
+        if (champ != null) {
             champ.setSuperficie(updateDto.getSuperficie());
-            champ.setFerme(ferme);
             champ = champRepo.save(champ);
         }
         return champMapper.toDTO(champ);
