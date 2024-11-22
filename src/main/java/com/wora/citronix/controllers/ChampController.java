@@ -25,18 +25,17 @@ public class ChampController {
         return ResponseEntity.status(201).body(savedChamp);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ChampDTO> updateChamp(
-//            @RequestBody @Valid ChampUpdateDTO champUpdateDTO,
-//            @PathVariable Long id) {
-//
-//        ChampDTO updatedChamp = champService.update(champUpdateDTO, id);
-//
-//        if (updatedChamp == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(updatedChamp);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ChampDTO> updateChamp(
+            @RequestBody @Valid ChampUpdateDTO champUpdateDTO) {
+
+        ChampDTO updatedChamp = champService.update(champUpdateDTO);
+
+        if (updatedChamp == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedChamp);
+    }
 
 
 //    @GetMapping
@@ -49,5 +48,11 @@ public class ChampController {
     public ResponseEntity<List<ChampDTO>> getChampsByFermeId(@RequestParam Long fermeId, @RequestParam int page, @RequestParam int size) {
         List<ChampDTO> ferms = champService.findByFermeId(fermeId,page, size);
         return ResponseEntity.ok(ferms);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        champService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
