@@ -1,6 +1,5 @@
 package com.wora.citronix.dtos.champ;
 
-import com.wora.citronix.dtos.ferme.FermeEmbeddedDTO;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

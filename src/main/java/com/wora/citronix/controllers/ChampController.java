@@ -21,8 +21,8 @@ public class ChampController {
 
     @PostMapping
     public ResponseEntity<ChampDTO> createChamp(@RequestBody @Valid ChampCreateDTO champCreateDTO) {
-        ChampDTO savedVisit = champService.save(champCreateDTO);
-        return ResponseEntity.status(201).body(savedVisit);
+        ChampDTO savedChamp = champService.save(champCreateDTO);
+        return ResponseEntity.status(201).body(savedChamp);
     }
 
 //    @PutMapping("/{id}")

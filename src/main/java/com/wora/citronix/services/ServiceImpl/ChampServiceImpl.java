@@ -7,6 +7,7 @@ import com.wora.citronix.dtos.champ.ChampDTO;
 import com.wora.citronix.dtos.champ.ChampUpdateDTO;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.entities.Ferme;
+import com.wora.citronix.exceptions.SuperficieDepasseeException;
 import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.ChampService;
@@ -28,16 +29,23 @@ public class ChampServiceImpl implements ChampService {
     private final ChampRepository champRepo;
     private final FermeRepository fermeRepository;
 
-
-    public ChampDTO save(ChampCreateDTO createDto){
+    @Override
+    public ChampDTO save(ChampCreateDTO createDto) {
         Optional<Ferme> fermeOptional = fermeRepository.findById(createDto.getFermeId());
         if (fermeOptional.isEmpty()) {
             throw new EntityNotFoundException("Ferme non trouvee");
         }
         Ferme ferme = fermeOptional.get();
+        //verifier que la superficie des champs est < la superficie totale
+        double superficieTotaleChamps = champRepo.sumSuperficieByFerme(createDto.getFermeId());
+
+        if (superficieTotaleChamps + createDto.getSuperficie() > ferme.getSuperficie()) {
+            throw new SuperficieDepasseeException("La somme des superficies des champs ne peut pas dépasser la superficie totale de la ferme");
+        }
         Champ champ = champMapper.toEntity(createDto);
         champ.setFerme(ferme);
         return champMapper.toDTO(champRepo.save(champ));
+
     }
 
     @Override
@@ -52,11 +60,11 @@ public class ChampServiceImpl implements ChampService {
         return champMapper.toDTO(champ);
     }
 
-//    @Override
-//    public List<ChampDTO> findAll(int page, int size){
-//        PageRequest pageable = PageRequest.of(page, size);
-//        return champRepo.findAll(pageable).stream()
-//                .map(champMapper::toDTO)
-//                .collect(Collectors.toList());
-//    }
+    @Override
+    public List<ChampDTO> findAll(int page, int size){
+        PageRequest pageable = PageRequest.of(page, size);
+        return champRepo.findAll(pageable).stream()
+                .map(champMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }
