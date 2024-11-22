@@ -9,7 +9,11 @@ import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.FermeService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +37,13 @@ public class FermeServiceImpl implements FermeService {
             ferme = fermeRepo.save(ferme);
         }
         return fermeMapper.toDTO(ferme);
+    }
+
+    @Override
+    public List<FermeDTO> findAll(int page, int size){
+        PageRequest pageable = PageRequest.of(page, size);
+        return fermeRepo.findAll(pageable).stream()
+                .map(fermeMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
