@@ -6,6 +6,7 @@ import com.wora.citronix.dtos.arbre.ArbreDTO;
 import com.wora.citronix.dtos.arbre.ArbreUpdateDTO;
 import com.wora.citronix.entities.Arbre;
 import com.wora.citronix.entities.Champ;
+import com.wora.citronix.exceptions.DatePlantationException;
 import com.wora.citronix.repositories.ArbreRepository;
 import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.services.ServiceInerf.ArbreService;
@@ -31,12 +32,19 @@ public class ArbreServiceImpl implements ArbreService {
 
     public ArbreDTO save(ArbreCreateDTO createDto) {
         Optional<Champ> champOptional = champRepository.findById(createDto.getChampId());
+        //verifier si champ existe
         if (champOptional.isEmpty()) {
             throw new EntityNotFoundException("Champ non trouvé");
         }
+        //handler date de plantation erreur
+        if (!isDatePlantationValide(createDto.getDatePlantation())) {
+            throw new DatePlantationException("La plantation d'arbres est limitée aux mois de mars, avril et mai.");
+        }
         Champ champ = champOptional.get();
+        // calculer l'age a l'aide de date de plantation
         int age = calculateAge(createDto.getDatePlantation());
         createDto.setAge(age);
+        //calcul du productivité annuelle
         createDto.setProductiviteAnnuelle(calculerProductiviteAnnuelle(age));
         Arbre arbre = arbreMapper.toEntity(createDto);
         arbre.setChamp(champ);
@@ -96,5 +104,10 @@ public class ArbreServiceImpl implements ArbreService {
         } else {
             return 20 * 4;
         }
+    }
+
+    private boolean isDatePlantationValide(LocalDate datePlantation) {
+        int mois = datePlantation.getMonthValue();
+        return mois >= 3 && mois <= 5;
     }
 }
