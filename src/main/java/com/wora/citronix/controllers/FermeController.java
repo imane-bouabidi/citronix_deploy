@@ -49,16 +49,11 @@ public class FermeController {
     }
 
     @GetMapping("/recherche")
-    public ResponseEntity<List<Ferme>> rechercherFermes(
-            @RequestParam(required = false) String nom,
-            @RequestParam(required = false) String localisation) {
-
-        List<Ferme> fermes = fermeService.rechercherFermes(FermeSearchDTO searchDTO);
-
+    public ResponseEntity<List<FermeDTO>> rechercherFermes(@RequestBody @Valid FermeSearchDTO searchDTO) {
+        List<FermeDTO> fermes = fermeService.rechercherFermes(searchDTO);
         if (fermes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-
         return ResponseEntity.ok(fermes);
     }
 }
