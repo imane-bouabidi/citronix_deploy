@@ -52,11 +52,11 @@ public class ChampServiceImpl implements ChampService {
         return champMapper.toDTO(champ);
     }
 
-    @Override
-    public List<ChampDTO> findAll(int page, int size){
-        PageRequest pageable = PageRequest.of(page, size);
-        return champRepo.findAll(pageable).stream()
-                .map(champMapper::toDTO)
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<ChampDTO> findAll(int page, int size){
+//        PageRequest pageable = PageRequest.of(page, size);
+//        return champRepo.findAll(pageable).stream()
+//                .map(champMapper::toDTO)
+//                .collect(Collectors.toList());
+//    }
 }
