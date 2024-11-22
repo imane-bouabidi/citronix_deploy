@@ -15,6 +15,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,6 +65,14 @@ public class ChampServiceImpl implements ChampService {
     public List<ChampDTO> findAll(int page, int size){
         PageRequest pageable = PageRequest.of(page, size);
         return champRepo.findAll(pageable).stream()
+                .map(champMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ChampDTO> findByFermeId(Long fermeId, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return champRepo.findByFermeId(fermeId,pageable).stream()
                 .map(champMapper::toDTO)
                 .collect(Collectors.toList());
     }

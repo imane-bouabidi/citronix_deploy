@@ -11,6 +11,7 @@ public interface ChampService {
     //    FermeDTO findById(Long id);
     ChampDTO update(ChampUpdateDTO updateDto, Long id);
     List<ChampDTO> findAll(int page, int size);
+    List<ChampDTO> findByFermeId(Long fermeId,int page, int size);
     //    void delete(Long id);
 
 }
