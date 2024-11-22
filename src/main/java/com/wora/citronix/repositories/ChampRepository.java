@@ -12,5 +12,7 @@ public interface ChampRepository extends JpaRepository<Champ,Long> {
     @Query("SELECT COALESCE(SUM(c.superficie), 0.0) FROM Champ c WHERE c.ferme.id = :fermeId")
     double sumSuperficieByFerme(@Param("fermeId") Long fermeId);
     Page<Champ> findByFermeId(Long fermeId, Pageable pageable);
+    @Query("SELECT COUNT(c) FROM Champ c WHERE c.ferme.id = :fermeId")
+    long countByFerme(@Param("fermeId") Long fermeId);
 
 }
