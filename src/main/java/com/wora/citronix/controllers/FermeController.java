@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/fermes")
 @RequiredArgsConstructor
@@ -35,5 +37,11 @@ public class FermeController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(updatedFerme);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<FermeDTO>> getAllWaitingRooms(@RequestParam int page, @RequestParam int size) {
+        List<FermeDTO> ferms = fermeService.findAll(page, size);
+        return ResponseEntity.ok(ferms);
     }
 }
