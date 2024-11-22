@@ -2,7 +2,9 @@ package com.wora.citronix.controllers;
 
 import com.wora.citronix.dtos.ferme.FermeCreateDTO;
 import com.wora.citronix.dtos.ferme.FermeDTO;
+import com.wora.citronix.dtos.ferme.FermeSearchDTO;
 import com.wora.citronix.dtos.ferme.FermeUpdateDTO;
+import com.wora.citronix.entities.Ferme;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.FermeService;
 import jakarta.validation.Valid;
@@ -44,5 +46,19 @@ public class FermeController {
     public ResponseEntity<List<FermeDTO>> getAllWaitingRooms(@RequestParam int page, @RequestParam int size) {
         List<FermeDTO> ferms = fermeService.findAll(page, size);
         return ResponseEntity.ok(ferms);
+    }
+
+    @GetMapping("/recherche")
+    public ResponseEntity<List<Ferme>> rechercherFermes(
+            @RequestParam(required = false) String nom,
+            @RequestParam(required = false) String localisation) {
+
+        List<Ferme> fermes = fermeService.rechercherFermes(FermeSearchDTO searchDTO);
+
+        if (fermes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(fermes);
     }
 }

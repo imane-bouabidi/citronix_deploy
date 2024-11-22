@@ -2,6 +2,7 @@ package com.wora.citronix.services.ServiceInerf;
 
 import com.wora.citronix.dtos.ferme.FermeCreateDTO;
 import com.wora.citronix.dtos.ferme.FermeDTO;
+import com.wora.citronix.dtos.ferme.FermeSearchDTO;
 import com.wora.citronix.dtos.ferme.FermeUpdateDTO;
 import com.wora.citronix.services.GenericService;
 
@@ -13,4 +14,6 @@ public interface FermeService extends GenericService<FermeCreateDTO, FermeUpdate
     FermeDTO update(FermeUpdateDTO updateDto, Long id);
     List<FermeDTO> findAll(int page, int size);
 //    void delete(Long id);
+    List<FermeDTO> rechercherFermes(FermeSearchDTO searchDTO);
+
 }
