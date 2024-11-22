@@ -1,9 +1,9 @@
 package com.wora.citronix.dtos.arbre;
 
 import com.wora.citronix.dtos.champ.ChampEmbeddedDTO;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 public class ArbreDTO {
@@ -11,5 +11,6 @@ public class ArbreDTO {
     private LocalDate datePlantation;
     private ChampEmbeddedDTO champ;
     private Integer age;
-    private boolean productif;
+    @NotNull
+    private double productiviteAnnuelle;
 }

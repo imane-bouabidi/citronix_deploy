@@ -35,7 +35,9 @@ public class ArbreServiceImpl implements ArbreService {
             throw new EntityNotFoundException("Champ non trouvé");
         }
         Champ champ = champOptional.get();
-        createDto.setAge(calculateAge(createDto.getDatePlantation()));
+        int age = calculateAge(createDto.getDatePlantation());
+        createDto.setAge(age);
+        createDto.setProductiviteAnnuelle(calculerProductiviteAnnuelle(age));
         Arbre arbre = arbreMapper.toEntity(createDto);
         arbre.setChamp(champ);
 
@@ -84,5 +86,15 @@ public class ArbreServiceImpl implements ArbreService {
 
     private Integer calculateAge(LocalDate datePlantation){
         return (int) ChronoUnit.YEARS.between(datePlantation, LocalDate.now());
+    }
+
+    public double calculerProductiviteAnnuelle(Integer age) {
+        if (age < 3) {
+            return 2.5 * 4;
+        } else if (age <= 10) {
+            return 12 * 4;
+        } else {
+            return 20 * 4;
+        }
     }
 }

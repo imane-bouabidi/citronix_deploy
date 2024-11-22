@@ -2,10 +2,15 @@ package com.wora.citronix.dtos.arbre;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.Period;
 
 @Data
+@Getter
+@Setter
 public class ArbreCreateDTO {
     @NotNull(message = "La date de plantation est obligatoire.")
     private LocalDate datePlantation;
@@ -18,8 +23,6 @@ public class ArbreCreateDTO {
     @Max(20)
     private Integer age;
 
-    private boolean productif;
-
 //    public Integer setAge(LocalDate datePlantation) {
 //        this.datePlantation = datePlantation;
 //        if (this.datePlantation != null) {
@@ -29,9 +32,8 @@ public class ArbreCreateDTO {
 //        return age;
 //    }
 
+    @NotNull
+    private double productiviteAnnuelle;
 
-    public void setAge(@NotNull @Min(0) @Max(20) Integer age) {
-        this.age = age;
-    }
 }
 
