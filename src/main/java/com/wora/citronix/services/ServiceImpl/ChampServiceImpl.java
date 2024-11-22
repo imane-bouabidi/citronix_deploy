@@ -7,6 +7,7 @@ import com.wora.citronix.dtos.champ.ChampDTO;
 import com.wora.citronix.dtos.champ.ChampUpdateDTO;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.entities.Ferme;
+import com.wora.citronix.exceptions.FermeDepasse10ChampsException;
 import com.wora.citronix.exceptions.Superficie50Exception;
 import com.wora.citronix.exceptions.SuperficieDepasseeException;
 import com.wora.citronix.exceptions.SuperficieMinimumException;
@@ -80,6 +81,11 @@ public class ChampServiceImpl implements ChampService {
         double superficieTotaleChamps = champRepo.sumSuperficieByFerme(ferme.getId());
 
         double superficieRestante = champ != null ? superficieTotaleChamps - champ.getSuperficie() : superficieTotaleChamps;
+
+        long nombreChamps = champRepo.countByFerme(ferme.getId());
+        if (nombreChamps >= 10) {
+            throw new FermeDepasse10ChampsException("Une ferme ne peut pas contenir plus de 10 champs");
+        }
 
         if (nouvelleSuperficie < 1000) {
             throw new SuperficieMinimumException("La superficie d'un champ ne peut pas être inférieure à 0.1 hectare");

@@ -24,5 +24,11 @@ public class GlobalExceptionHandler {
         String errorMessage = ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(FermeDepasse10ChampsException.class)
+    public ResponseEntity<Object> handleFermeDepasse10ChampsException(FermeDepasse10ChampsException ex) {
+        String errorMessage = ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
 }
 
