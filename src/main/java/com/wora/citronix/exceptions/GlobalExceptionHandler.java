@@ -30,5 +30,11 @@ public class GlobalExceptionHandler {
         String errorMessage = ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(DatePlantationException.class)
+    public ResponseEntity<Object> handleDatePlantationException(DatePlantationException ex) {
+        String errorMessage = ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
 }
 
