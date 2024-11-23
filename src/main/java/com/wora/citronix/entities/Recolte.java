@@ -20,6 +20,7 @@ public class Recolte {
     private Long id;
 
     @NotNull
+    @PastOrPresent
     private LocalDate dateRecolte;
 
     @NotNull
