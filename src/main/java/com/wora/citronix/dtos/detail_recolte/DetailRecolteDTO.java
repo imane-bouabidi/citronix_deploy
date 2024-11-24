@@ -8,7 +8,6 @@ import java.util.UUID;
 public class DetailRecolteDTO {
     private Long id;
     private double quantite;
-    private String typeProduit;
     private RecolteEmbeddedDTO recolte;
 }
 

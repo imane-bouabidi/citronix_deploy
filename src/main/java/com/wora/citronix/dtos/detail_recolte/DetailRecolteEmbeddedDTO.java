@@ -7,6 +7,5 @@ import java.util.UUID;
 public class DetailRecolteEmbeddedDTO {
     private Long id;
     private double quantite;
-    private String typeProduit;
 }
 

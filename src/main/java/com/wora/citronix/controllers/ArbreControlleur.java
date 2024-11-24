@@ -23,18 +23,13 @@ public class ArbreControlleur {
         return ResponseEntity.status(201).body(savedArbre);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ArbreDTO> updateArbre(
-//            @RequestBody @Valid ArbreUpdateDTO arbreUpdateDTO, @RequestParam Long id) {
-//
-//
-//        ArbreDTO updatedArbre = arbreService.update(arbreUpdateDTO, id);
-//
-//        if (updatedArbre == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(updatedArbre);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ArbreDTO> updateArbre(
+            @RequestBody @Valid ArbreUpdateDTO arbreUpdateDTO, @RequestParam Long id) {
+
+        ArbreDTO updatedArbre = arbreService.update(arbreUpdateDTO, id);
+        return ResponseEntity.ok(updatedArbre);
+    }
 //
 //
     @GetMapping

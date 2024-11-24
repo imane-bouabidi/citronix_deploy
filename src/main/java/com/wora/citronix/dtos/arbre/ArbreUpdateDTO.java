@@ -13,8 +13,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ArbreUpdateDTO {
-    @NotNull(message = "L'identifiant de l'arbre est obligatoire.")
-    private Long id;
 
     @NotNull(message = "La date de plantation est obligatoire.")
     private LocalDate datePlantation;
