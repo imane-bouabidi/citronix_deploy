@@ -13,6 +13,7 @@ public class VenteDTO {
     private Long id;
     private LocalDate dateVente;
     private double prixUnitaire;
+    private double revenu;
     private String client;
     private Long recolteId;
 }

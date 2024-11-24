@@ -8,11 +8,11 @@ import com.wora.citronix.entities.Arbre;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.exceptions.DatePlantationException;
 import com.wora.citronix.exceptions.DensiteArbresException;
+import com.wora.citronix.exceptions.EntityNotFoundException;
 import com.wora.citronix.exceptions.PlusDe20Exception;
 import com.wora.citronix.repositories.ArbreRepository;
 import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.services.ServiceInerf.ArbreService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +42,7 @@ public class ArbreServiceImpl implements ArbreService {
 
         //handler date de plantation erreur
         if (!isDatePlantationValide(createDto.getDatePlantation())) {
-            throw new DatePlantationException("La plantation d'arbres est limitée aux mois de mars, avril et mai.");
+            throw new DatePlantationException("La plantation d'arbres est limitée aux mois de mars, avril et mai et ne peut pas etre au future.");
         }
 
         Champ champ = champOptional.get();
@@ -74,7 +74,7 @@ public class ArbreServiceImpl implements ArbreService {
     }
 
     public ArbreDTO findById(Long id){
-        Arbre arbre = arbreRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        Arbre arbre = arbreRepo.findById(id).orElseThrow(()-> new EntityNotFoundException("Arbre n'existe pas !"));
         return arbreMapper.toDTO(arbre);
     }
 
@@ -116,16 +116,16 @@ public class ArbreServiceImpl implements ArbreService {
 
     public double calculerProductiviteAnnuelle(Integer age) {
         if (age < 3) {
-            return 2.5 * 4;
+            return 2.5;
         } else if (age <= 10) {
-            return 12 * 4;
+            return 12;
         } else {
-            return 20 * 4;
+            return 20;
         }
     }
 
     private boolean isDatePlantationValide(LocalDate datePlantation) {
         int mois = datePlantation.getMonthValue();
-        return mois >= 3 && mois <= 5;
+        return mois >= 3 && mois <= 5 && datePlantation.isBefore(LocalDate.now());
     }
 }

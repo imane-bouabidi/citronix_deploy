@@ -14,15 +14,13 @@ import com.wora.citronix.exceptions.SuperficieMinimumException;
 import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.ChampService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
+import com.wora.citronix.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

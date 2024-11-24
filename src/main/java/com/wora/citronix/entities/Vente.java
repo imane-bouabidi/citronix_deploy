@@ -27,9 +27,9 @@ public class Vente {
     @JoinColumn(nullable = false)
     private Recolte recolte;
 
-//    public double getRevenu() {
-//        return recolte.getQuantiteTotale() * prixUnitaire;
-//    }
+    public double getRevenu() {
+        return recolte.getQuantiteTotale() * prixUnitaire;
+    }
 
 }
 
