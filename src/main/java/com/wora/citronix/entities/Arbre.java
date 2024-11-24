@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +30,9 @@ public class Arbre {
     @ManyToOne
     @JoinColumn(name = "champ_id", nullable = false)
     private Champ champ;
+
+    @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL)
+    private List<DetailRecolte> detailRecoltes;
 
     @NotNull
     private double productiviteAnnuelle = 0.0;
