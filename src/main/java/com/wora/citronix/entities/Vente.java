@@ -3,7 +3,6 @@ package com.wora.citronix.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -22,18 +21,15 @@ public class Vente {
     private double prixUnitaire;
 
     @Column(nullable = false)
-    private double quantite;
-
-    @Column(nullable = false)
     private String client;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private Recolte recolte;
 
-    public double getRevenu() {
-        return quantite * prixUnitaire;
-    }
+//    public double getRevenu() {
+//        return recolte.getQuantiteTotale() * prixUnitaire;
+//    }
 
 }
 

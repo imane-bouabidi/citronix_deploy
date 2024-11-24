@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RecolteService extends GenericService<RecolteCreateDTO, RecolteUpdateDTO, RecolteDTO,Long> {
     RecolteDTO save(RecolteCreateDTO createDto);
-//    DTO findById(ID id);
+    RecolteDTO findById(Long id);
 //    RecolteDTO update(RecolteUpdateDTO updateDto, Long id);
 //    List<RecolteDTO> findAll(int page, int size);
 //    void delete(ID id);

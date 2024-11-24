@@ -4,13 +4,11 @@ import com.wora.citronix.Mappers.ChampMapper;
 import com.wora.citronix.Mappers.RecolteMapper;
 import com.wora.citronix.dtos.recolte.RecolteCreateDTO;
 import com.wora.citronix.dtos.recolte.RecolteDTO;
-import com.wora.citronix.dtos.recolte.RecolteUpdateDTO;
 import com.wora.citronix.entities.Arbre;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.entities.DetailRecolte;
 import com.wora.citronix.entities.Recolte;
 import com.wora.citronix.exceptions.RecolteDoubleSaisonException;
-import com.wora.citronix.repositories.ChampRepository;
 import com.wora.citronix.repositories.RecolteRepository;
 import com.wora.citronix.services.ServiceInerf.ChampService;
 import com.wora.citronix.services.ServiceInerf.RecolteService;
@@ -26,7 +24,6 @@ public class RecolteServiceImpl implements RecolteService {
 
     private final RecolteMapper recolteMapper;
     private final RecolteRepository recolteRepository;
-    private final ChampRepository champRepository;
     private final ChampService champService;
     private final ChampMapper champMapper;
 
@@ -64,7 +61,10 @@ public class RecolteServiceImpl implements RecolteService {
         return recolteMapper.toDTO(savedHarvest);
     }
 
-    //    DTO findById(ID id);
+     public RecolteDTO findById(Long id){
+         Recolte recolte =   recolteRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Champ n'existe pas !"));
+         return recolteMapper.toDTO(recolte);
+     }
 //    RecolteDTO update(RecolteUpdateDTO updateDto, Long id);
 //    List<RecolteDTO> findAll(int page, int size);
 }
