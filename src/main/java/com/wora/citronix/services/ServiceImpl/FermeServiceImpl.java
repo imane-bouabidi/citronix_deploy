@@ -51,6 +51,12 @@ public class FermeServiceImpl implements FermeService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void delete(Long id){
+        Ferme ferme = fermeRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("ferme not found"));
+        fermeRepo.delete(ferme);
+    }
+
     @Transactional
     public List<FermeDTO> rechercherFermes(FermeSearchDTO searchDTO) {
             List<Ferme> fermes = fermeRepo.rechercherFermes(
