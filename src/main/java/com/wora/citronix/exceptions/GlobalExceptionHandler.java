@@ -48,5 +48,17 @@ public class GlobalExceptionHandler {
         String errorMessage = ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(SaisonInvalidValueException.class)
+    public ResponseEntity<String> handleInvalidEnumValue(SaisonInvalidValueException ex) {
+        String errorMessage = ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RecolteDoubleSaisonException.class)
+    public ResponseEntity<String> handleRecolteDoubleSaison(RecolteDoubleSaisonException ex) {
+        String errorMessage = ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
 }
 

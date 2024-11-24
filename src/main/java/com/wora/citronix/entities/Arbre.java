@@ -33,5 +33,16 @@ public class Arbre {
     @NotNull
     private double productiviteAnnuelle = 0.0;
 
+
+    public void calculerProductivite() {
+        if (age < 3) {
+            this.productiviteAnnuelle = 2.5;
+        } else if (age <= 10) {
+            this.productiviteAnnuelle = 12.0;
+        } else {
+            this.productiviteAnnuelle = 20.0;
+        }
+    }
+
 }
 

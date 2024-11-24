@@ -1,24 +1,27 @@
 package com.wora.citronix.dtos.recolte;
 
 import com.wora.citronix.dtos.champ.ChampEmbeddedDTO;
+import com.wora.citronix.entities.enums.Saison;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
-import java.util.UUID;
 
 
 @Data
+@Getter
+@Setter
 public class RecolteCreateDTO {
     @NotNull(message = "La date de récolte est obligatoire.")
+    @PastOrPresent
     private LocalDate dateRecolte;
 
     @NotBlank(message = "La saison est obligatoire.")
-    private String saison;
-
-    @Positive(message = "La quantité totale doit être positive.")
-    private double quantiteTotale;
+    private Saison saison;
 
     @NotNull(message = "champ est obligatoire.")
-    private ChampEmbeddedDTO champ;
+    private Long champId;
 }
 
