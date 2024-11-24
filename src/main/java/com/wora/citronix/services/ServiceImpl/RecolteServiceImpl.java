@@ -8,14 +8,16 @@ import com.wora.citronix.entities.Arbre;
 import com.wora.citronix.entities.Champ;
 import com.wora.citronix.entities.DetailRecolte;
 import com.wora.citronix.entities.Recolte;
+import com.wora.citronix.exceptions.DatePlantationException;
 import com.wora.citronix.exceptions.RecolteDoubleSaisonException;
 import com.wora.citronix.repositories.RecolteRepository;
 import com.wora.citronix.services.ServiceInerf.ChampService;
 import com.wora.citronix.services.ServiceInerf.RecolteService;
-import jakarta.persistence.EntityNotFoundException;
+import com.wora.citronix.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,8 +32,10 @@ public class RecolteServiceImpl implements RecolteService {
     @Override
     public RecolteDTO save(RecolteCreateDTO createDto) {
         Champ champ = champMapper.toEntity(champService.findById(createDto.getChampId()));
-
-        if (recolteRepository.existsBySaison(createDto.getSaison())) {
+        if(champ == null){
+            throw new EntityNotFoundException("Champ not found");
+        }
+        if (recolteRepository.existsBySaisonAndChampId(createDto.getSaison(), champ.getId())) {
             throw new RecolteDoubleSaisonException("Déja récolté cette saison !! ");
         }
 
@@ -40,7 +44,9 @@ public class RecolteServiceImpl implements RecolteService {
         double total = champ.getArbres().stream()
                 .mapToDouble(Arbre::getProductiviteAnnuelle)
                 .sum();
-
+        if(createDto.getDateRecolte().isAfter(LocalDate.now())){
+            throw new DatePlantationException("date de recolte ne peut pas etre au future !");
+        }
         Recolte recolte = recolteMapper.toEntity(createDto);
         recolte.setSaison(createDto.getSaison());
         recolte.setQuantiteTotale(total);
@@ -49,10 +55,8 @@ public class RecolteServiceImpl implements RecolteService {
 
         List<DetailRecolte> detailRecoltes = champ.getArbres()
                 .stream()
-                .map(arbre -> {
-                    System.out.println(arbre);
-                    return new DetailRecolte(arbre.getProductiviteAnnuelle(), arbre, recolte);
-                })
+                .map(arbre -> new DetailRecolte(arbre.getProductiviteAnnuelle(), arbre, recolte)
+                )
                 .toList();
 
         recolte.setDetails(detailRecoltes);

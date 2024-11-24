@@ -22,5 +22,6 @@ public class FermeCreateDTO {
     private double superficie;
 
     @NotNull(message = "La date de création est obligatoire.")
+    @PastOrPresent
     private LocalDate dateCreation;
 }

@@ -9,7 +9,7 @@ import com.wora.citronix.entities.Ferme;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.FermeService;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
+import com.wora.citronix.exceptions.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

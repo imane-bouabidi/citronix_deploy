@@ -4,11 +4,10 @@ import com.wora.citronix.Mappers.DetailRecolteMapper;
 import com.wora.citronix.dtos.detail_recolte.DetailRecolteDTO;
 import com.wora.citronix.dtos.detail_recolte.DetailRecolteUpdateDTO;
 import com.wora.citronix.entities.*;
-import com.wora.citronix.entities.EmbeddedId.EmbeddedArbreRecolteId;
 import com.wora.citronix.repositories.DetailRecolteRepository;
 import com.wora.citronix.repositories.RecolteRepository;
 import com.wora.citronix.services.ServiceInerf.DetailRecolteService;
-import jakarta.persistence.EntityNotFoundException;
+import com.wora.citronix.exceptions.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,9 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
     @Override
     public DetailRecolteDTO update(DetailRecolteUpdateDTO detailRecolteUpdateDTO) {
         DetailRecolte detailRecolte = detailRecolteRepository.findByRecolteIdAndArbreId(detailRecolteUpdateDTO.getRecolteId(), detailRecolteUpdateDTO.getArbreId());
-
+        if (detailRecolte == null) {
+            throw new EntityNotFoundException("Le détail de récolte spécifié n'existe pas.");
+        }
         detailRecolte.setQuantite(detailRecolteUpdateDTO.getQuantite());
         detailRecolteRepository.save(detailRecolte);
 

@@ -31,6 +31,7 @@ public class Ferme {
 
     @NotNull
     @Column(name = "date_creation")
+    @PastOrPresent
     private LocalDate dateCreation;
 
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)

@@ -9,6 +9,7 @@ import com.wora.citronix.entities.Vente;
 import com.wora.citronix.repositories.VenteRepository;
 import com.wora.citronix.services.ServiceInerf.RecolteService;
 import com.wora.citronix.services.ServiceInerf.VenteService;
+import com.wora.citronix.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,14 @@ public class VenteServiceImpl implements VenteService {
 
         return  venteMapper.toDTO(venteRepository.save(vente));
 
+    }
+    //afficher revenu d'une vente
+    @Override
+    public VenteDTO getVenteRevenu(Long venteId){
+        Vente vente = venteRepository.findById(venteId).orElseThrow(()->new EntityNotFoundException("vente note found !"));
+        VenteDTO venteDTO =  venteMapper.toDTO(vente);
+        venteDTO.setRevenu(vente.getRevenu());
+        return venteDTO;
     }
 
 }
