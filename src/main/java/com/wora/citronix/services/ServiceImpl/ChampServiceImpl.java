@@ -1,7 +1,6 @@
 package com.wora.citronix.services.ServiceImpl;
 
 import com.wora.citronix.Mappers.ChampMapper;
-import com.wora.citronix.Mappers.FermeMapper;
 import com.wora.citronix.dtos.champ.ChampCreateDTO;
 import com.wora.citronix.dtos.champ.ChampDTO;
 import com.wora.citronix.dtos.champ.ChampUpdateDTO;
@@ -36,9 +35,9 @@ public class ChampServiceImpl implements ChampService {
         Ferme ferme = fermeRepository.findById(createDto.getFermeId())
                 .orElseThrow(() -> new EntityNotFoundException("Ferme non trouvée"));
 
-        validateSuperficie(null, createDto.getSuperficie(), ferme);
-
         Champ champ = champMapper.toEntity(createDto);
+        validateSuperficie(champ, createDto.getSuperficie(), ferme);
+
         champ.setFerme(ferme);
         return champMapper.toDTO(champRepo.save(champ));
 
@@ -78,7 +77,8 @@ public class ChampServiceImpl implements ChampService {
 
     @Override
     public void delete(Long id){
-        champRepo.deleteById(id);
+        Champ champ = champRepo.findById(id).orElseThrow(()->new EntityNotFoundException("champ not found"));
+        champRepo.delete(champ);
     }
 
     private void validateSuperficie(Champ champ, double nouvelleSuperficie, Ferme ferme) {

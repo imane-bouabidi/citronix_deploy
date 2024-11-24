@@ -13,7 +13,7 @@ public interface FermeService extends GenericService<FermeCreateDTO, FermeUpdate
 //    FermeDTO findById(Long id);
     FermeDTO update(FermeUpdateDTO updateDto, Long id);
     List<FermeDTO> findAll(int page, int size);
-//    void delete(Long id);
+    void delete(Long id);
     List<FermeDTO> rechercherFermes(FermeSearchDTO searchDTO);
 
 }
