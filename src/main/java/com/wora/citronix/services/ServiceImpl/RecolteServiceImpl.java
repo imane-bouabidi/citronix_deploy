@@ -30,27 +30,13 @@ public class RecolteServiceImpl implements RecolteService {
     private final ChampService champService;
     private final ChampMapper champMapper;
 
-//    @Override
-//    public RecolteDTO save(RecolteCreateDTO createDto){
-//        Champ champ = champRepository.findById(createDto.getChampId())
-//                .orElseThrow(() -> new EntityNotFoundException("Champ non trouvé"));
-//
-//        Recolte recolte = Recolte.builder()
-//                .dateRecolte(createDto.getDateRecolte())
-//                .saison(createDto.getSaison())
-//                .champ(champ)
-//                .build();
-//
-//        return recolteMapper.toDTO(recolteRepository.save(recolte));
-//    }
-
     @Override
     public RecolteDTO save(RecolteCreateDTO createDto) {
         Champ champ = champMapper.toEntity(champService.findById(createDto.getChampId()));
 
-//        if (recolteRepository.existsBySaison(createDto.getSaison())) {
-//            throw new RecolteDoubleSaisonException("Déja récolté cette saison !! ");
-//        }
+        if (recolteRepository.existsBySaison(createDto.getSaison())) {
+            throw new RecolteDoubleSaisonException("Déja récolté cette saison !! ");
+        }
 
         champ.getArbres().forEach(Arbre::calculerProductivite);
 
