@@ -13,6 +13,6 @@ public class ChampDTO {
     private Long superficie;
     private FermeEmbeddedDTO ferme;
     private List<ArbreEmbeddedDTO> arbres;
-    private RecolteEmbeddedDTO recolte;
+    private List<RecolteEmbeddedDTO> recolte;
 }
 

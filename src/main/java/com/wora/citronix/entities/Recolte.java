@@ -2,6 +2,7 @@ package com.wora.citronix.entities;
 
 import com.wora.citronix.entities.enums.Saison;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -27,11 +28,10 @@ public class Recolte {
     @Enumerated(EnumType.STRING)
     private Saison saison;
 
-    @NotNull
     @Min(0)
     private Double quantiteTotale;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "champ_id", nullable = false)
     private Champ champ;
 

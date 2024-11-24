@@ -29,7 +29,7 @@ public class Champ {
     @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)
     private List<Arbre> arbres;
 
-    @OneToOne(mappedBy = "champ", cascade = CascadeType.ALL)
-    private Recolte recolte;
+    @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)
+    private List<Recolte> recolte;
 }
 

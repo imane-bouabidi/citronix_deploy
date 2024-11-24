@@ -73,6 +73,12 @@ public class ChampServiceImpl implements ChampService {
     }
 
     @Override
+    public ChampDTO findById(Long id){
+        Champ champ =  champRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Champ n'existe pas !"));
+        return champMapper.toDTO(champ);
+    }
+
+    @Override
     public void delete(Long id){
         champRepo.deleteById(id);
     }
