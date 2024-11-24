@@ -30,8 +30,7 @@ public class ArbreControlleur {
         ArbreDTO updatedArbre = arbreService.update(arbreUpdateDTO, id);
         return ResponseEntity.ok(updatedArbre);
     }
-//
-//
+
     @GetMapping
     public ResponseEntity<List<ArbreDTO>> getAllArbres(@RequestParam int page, @RequestParam int size) {
         List<ArbreDTO> ferms = arbreService.findAll(page, size);
