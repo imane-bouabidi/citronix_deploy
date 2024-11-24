@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface DetailRecolteRepository extends JpaRepository<DetailRecolte, Long> {
-    List<DetailRecolte> findByArbre(Arbre arbre);
-    DetailRecolte findByRecolteIdAndArbreId(Long recolteId, Long arbreId);
-
+//    List<DetailRecolte> findByArbre(Arbre arbre);
+DetailRecolte findByRecolteIdAndArbreId(Long recolteId, Long arbreId);
 }

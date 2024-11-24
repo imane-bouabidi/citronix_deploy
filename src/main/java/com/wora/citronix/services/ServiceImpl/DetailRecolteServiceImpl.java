@@ -4,12 +4,16 @@ import com.wora.citronix.Mappers.DetailRecolteMapper;
 import com.wora.citronix.dtos.detail_recolte.DetailRecolteDTO;
 import com.wora.citronix.dtos.detail_recolte.DetailRecolteUpdateDTO;
 import com.wora.citronix.entities.*;
+import com.wora.citronix.entities.EmbeddedId.EmbeddedArbreRecolteId;
 import com.wora.citronix.repositories.DetailRecolteRepository;
 import com.wora.citronix.repositories.RecolteRepository;
 import com.wora.citronix.services.ServiceInerf.DetailRecolteService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -47,8 +51,14 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
         return detailRecolteMapper.toDTO(detailRecolte);
     }
 
-//    @Override
-//    public List<DetailRecolte> findByArbre(Arbre arbre){
-//        return detailRecolteRepository.findByArbre(arbre);
-//    }
+    @Override
+    public DetailRecolteDTO findByRecolteIdAndArbreId(Long recolteId,Long arbreId){
+        DetailRecolte detailRecolte = detailRecolteRepository.findByRecolteIdAndArbreId(recolteId, arbreId);
+
+        if (detailRecolte == null) {
+            throw new EntityNotFoundException("Aucun détail de récolte trouvé pour cette récolte et cet arbre.");
+        }
+
+        return detailRecolteMapper.toDTO(detailRecolte);
+    }
 }
