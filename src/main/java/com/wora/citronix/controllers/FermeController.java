@@ -39,7 +39,7 @@ public class FermeController {
 
 
     @GetMapping
-    public ResponseEntity<List<FermeDTO>> getAllWaitingRooms(@RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<List<FermeDTO>> getAllFermes(@RequestParam int page, @RequestParam int size) {
         List<FermeDTO> ferms = fermeService.findAll(page, size);
         return ResponseEntity.ok(ferms);
     }
@@ -51,5 +51,11 @@ public class FermeController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(fermes);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        fermeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

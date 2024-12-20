@@ -25,7 +25,7 @@ public class ArbreControlleur {
 
     @PutMapping("/{id}")
     public ResponseEntity<ArbreDTO> updateArbre(
-            @RequestBody @Valid ArbreUpdateDTO arbreUpdateDTO, @RequestParam Long id) {
+            @RequestBody @Valid ArbreUpdateDTO arbreUpdateDTO, @PathVariable Long id) {
 
         ArbreDTO updatedArbre = arbreService.update(arbreUpdateDTO, id);
         return ResponseEntity.ok(updatedArbre);
@@ -42,10 +42,10 @@ public class ArbreControlleur {
         List<ArbreDTO> ferms = arbreService.findByChampId(champId,page, size);
         return ResponseEntity.ok(ferms);
     }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> delete(@PathVariable Long id) {
-//        arbreService.delete(id);
-//        return ResponseEntity.noContent().build();
-//    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        arbreService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

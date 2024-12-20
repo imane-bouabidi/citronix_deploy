@@ -82,9 +82,19 @@ public class ArbreServiceImpl implements ArbreService {
         Arbre arbre = arbreRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("arbre not found"));
         Champ champ = champRepository.findById(updateDto.getChampId()).orElseThrow(() -> new EntityNotFoundException("champ not found"));
         if (arbre != null) {
+            if (!isDatePlantationValide(updateDto.getDatePlantation())) {
+                throw new DatePlantationException("La plantation d'arbres est limitée aux mois de mars, avril et mai et ne peut pas etre au future.");
+            }
             arbre.setDatePlantation(updateDto.getDatePlantation());
-            arbre.setAge(updateDto.getAge());
+            int age = calculateAge(updateDto.getDatePlantation());
+
+            if (age > 20) {
+                throw new PlusDe20Exception("Les arbres plus de 20 ans ne peuvent pas etre plantés !");
+            }
+            arbre.setAge(age);
             arbre.setChamp(champ);
+            arbre.setProductiviteAnnuelle(calculerProductiviteAnnuelle(age));
+
             arbre = arbreRepo.save(arbre);
         }
         return arbreMapper.toDTO(arbre);

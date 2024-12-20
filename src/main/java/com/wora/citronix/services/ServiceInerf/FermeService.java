@@ -16,4 +16,17 @@ public interface FermeService extends GenericService<FermeCreateDTO, FermeUpdate
     void delete(Long id);
     List<FermeDTO> rechercherFermes(FermeSearchDTO searchDTO);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
