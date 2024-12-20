@@ -6,6 +6,7 @@ import com.wora.citronix.dtos.ferme.FermeDTO;
 import com.wora.citronix.dtos.ferme.FermeSearchDTO;
 import com.wora.citronix.dtos.ferme.FermeUpdateDTO;
 import com.wora.citronix.entities.Ferme;
+import com.wora.citronix.exceptions.DatePlantationException;
 import com.wora.citronix.repositories.FermeRepository;
 import com.wora.citronix.services.ServiceInerf.FermeService;
 import jakarta.persistence.EntityManager;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,3 +69,8 @@ public class FermeServiceImpl implements FermeService {
             return fermes.stream().map(fermeMapper::toDTO).toList();
         }
     }
+
+
+
+
+
